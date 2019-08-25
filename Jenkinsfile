@@ -22,14 +22,14 @@ pipeline{
                 }
             }
         }
-        // stage('Build and Push Spring Petclinic Docker Image') {
-        //     steps{
-        //         sh "sudo cp $WORKSPACE/cape-registry/target/*.jar $WORKSPACE/dockerfiles/service.jar"
-        //         sh "sudo docker build --build-arg JAR_FILE_PATH=./dockerfiles/service.jar --build-arg COMMON_PROPERTIES_PATH=./dockerfiles/common.properties -f $WORKSPACE/dockerfiles/Registry.Dockerfile -t cape-demo-registry.southeastasia.cloudapp.azure.com/cape-registry:$VERSION ."
-        //         sh "sudo docker push cape-demo-registry.southeastasia.cloudapp.azure.com/cape-registry:$VERSION"
-        //         sh "sudo rm -r $WORKSPACE/dockerfiles/service.jar"
-        //         sh "sudo docker rmi -f cape-demo-registry.southeastasia.cloudapp.azure.com/cape-registry:$VERSION"
-        //     }
-        // }
+        stage('Build and Push Spring Petclinic Docker Image') {
+            steps{
+                sh "sudo cp $WORKSPACE/target/*.jar $WORKSPACE/spring-petclinic.jar"
+                sh "sudo docker build --build-arg JAR_FILE_PATH=./spring-petclinic.jar -t nir16r/spring-petclinic:$VERSION ."
+                sh "sudo docker push nir16r/spring-petclinic:$VERSION"
+                sh "sudo rm -r $WORKSPACE/spring-petclinic.jar"
+                sh "sudo docker rmi -f nir16r/spring-petclinic:$VERSION"
+            }
+        }
     }
 }
