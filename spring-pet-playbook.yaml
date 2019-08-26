@@ -17,7 +17,8 @@
   tasks:
     - name: Copy deployment file to Kube Master
       copy: src='Deployment.yaml' dest='~/Deployment.yaml'
-    - name: Start kubernetes service
-      shell: "kubectl apply -f ~/Service.yaml"
-    - name: Start kubernetes deployment
-      shell: kubectl apply -f ~/Deployment.yaml
+    # - name: Start kubernetes service
+    #   shell: "kubectl apply -f ~/Service.yaml"
+    - name: Rollout kubernetes deployment
+      shell: "kubectl --record deployment/spring-petclinic set image deployment/spring-petclinic spring-petclinic=nir16r/spring-petclinic:{{version}}"
+      # shell: kubectl apply -f ~/Deployment.yaml
