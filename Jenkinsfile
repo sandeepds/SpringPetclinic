@@ -31,5 +31,13 @@ pipeline{
                 sh "sudo docker rmi -f nir16r/spring-petclinic:$VERSION"
             }
         }
+        stage('Transfer ansible playbook') {
+            steps{
+                writeFile file: 'spring-pet-playbook.yaml', text: 'ls -lrt'
+                sshPut remote: remote, from: '$WORKSPACE/spring-pet-playbook.yaml', into: '~/ansible/'
+                // sshCommand remote: remote, command: "ls -lrt"
+                // sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
+            }
+        }
     }
 }
