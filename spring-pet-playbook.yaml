@@ -1,24 +1,23 @@
 ---
-
 - hosts: qa
   sudo: yes
 
   tasks:
-  - name: Pull docker image
-    shell: docker pull nir16r/spring-petclinic:v1
+    - name: Pull docker image
+      shell: docker pull nir16r/spring-petclinic:v1
 
-  - name: Stop docker container
-    shell: docker rm -f spring-petclinic
+    - name: Stop docker container
+      shell: docker rm -f spring-petclinic
 
-  - name: Run docker container
-    shell: docker run -itd -p 8080:8080 --name spring-petclinic nir16r/spring-petclinic:v1
-
+    - name: Run docker container
+      shell: docker run -itd -p 8080:8080 --name spring-petclinic nir16r/spring-petclinic:v1
 
 - hosts: prod
-  sudo: yes
 
   tasks:
-  - name: Start kubernetes service
-    shell: "kubectl apply -f /home/devopsinfra/Service.yaml"
-  - name: Start kubernetes deployment
-    shell: kubectl apply -f /home/devopsinfra/Deployment.yaml
+    - name: Copy deployment file to Kube Master
+      copy: src='Deployment.yaml' dest='Deployment.yaml'
+    - name: Start kubernetes service
+      shell: "kubectl apply -f ~/Service.yaml"
+    - name: Start kubernetes deployment
+      shell: kubectl apply -f ~/Deployment.yaml

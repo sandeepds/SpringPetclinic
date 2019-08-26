@@ -1,8 +1,8 @@
 def remote = [:]
     remote.name = 'test'
     remote.host = 'rjzfg18876dns1.eastus2.cloudapp.azure.com'
-    remote.user = 'devopsinfra'
-    remote.password = 'Applestore12$4'
+    remote.user = $ANSIBLE_USER
+    remote.password = $ANSIBLE_PASS
     remote.allowAnyHosts = true
 
 pipeline{
