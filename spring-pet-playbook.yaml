@@ -16,7 +16,7 @@
 
   tasks:
     - name: Copy deployment file to Kube Master
-      copy: src='Deployment.yaml' dest='Deployment.yaml'
+      copy: src='Deployment.yaml' dest='~/Deployment.yaml'
     - name: Start kubernetes service
       shell: "kubectl apply -f ~/Service.yaml"
     - name: Start kubernetes deployment
