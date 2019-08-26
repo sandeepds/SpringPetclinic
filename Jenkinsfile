@@ -1,8 +1,8 @@
 def remote = [:]
     remote.name = 'test'
     remote.host = 'rjzfg18876dns2.eastus2.cloudapp.azure.com'
-    remote.user = 'devopsinfra'
-    remote.password = 'Applestore12$4'
+    remote.user = "${params.ANSIBLE_USER}"
+    remote.password = "${params.ANSIBLE_PASS}"
     remote.allowAnyHosts = true
 
 pipeline{
@@ -54,7 +54,7 @@ pipeline{
         }
         stage('Run ansible playbook') {
             steps{
-                sshCommand remote: remote, command: "cd ~/ansible; ansible-playbook -i inventory spring-pet-playbook.yaml --extra-vars \"version=v1\""
+                sshCommand remote: remote, command: "cd ~/ansible; ansible-playbook -i inventory spring-pet-playbook.yaml --extra-vars \"version=$VERSION\""
                 // sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
             }
         }
